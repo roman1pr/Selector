@@ -17,7 +17,41 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    
+    SEL selector1 = @selector(testMethod);
+    SEL selector2 = @selector(testMethod:);
+    SEL selector3 = @selector(testMethod:paramenter2:);
+    
+    [self performSelector:selector1];
+    [self performSelector:selector2 withObject:@"test String" afterDelay:5.f];
+    [self performSelector:selector3 withObject:@"test String" withObject:@"second test"];
+    
+    NSString * str = [self testMethodParam1:1 param2:2 param3:3];
+    NSLog(@"%@", str);
+   /*
+    NSMethodSignature * methodSignature = [AppDelegate instanceMethodForSelector:sel];
+    NSInvocation* invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+    
+    */
+    
     return YES;
+}
+
+- (void) testMethod{
+    NSLog(@"TestMethod");
+}
+
+- (void) testMethod: (NSString*) string{
+    NSLog(@"%@ - test", string);
+}
+
+- (void) testMethod: (NSString*) string paramenter2:(NSString*) param{
+    NSLog(@"%@ - test, %@", string, param);
+}
+
+-(NSString*) testMethodParam1 :(NSInteger) intValue param2 : (CGFloat) floatParam param3: (double) doubleValue{
+    return [NSString stringWithFormat:@"%ld %f %f", (long)intValue, floatParam, doubleValue];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
